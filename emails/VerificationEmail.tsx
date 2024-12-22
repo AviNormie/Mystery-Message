@@ -10,23 +10,16 @@ import {
     Button,
 } from '@react-email/components';
 
-interface VerficationEmailProps {
+interface VerificationEmailProps {
     username: string;
     otp: string;
 }
 
-export default function VerificationEmail({ username, otp }: VerficationEmailProps) {
+export default function VerificationEmail({ username, otp }: VerificationEmailProps) {
     return (
         <Html lang="en" dir='ltr'>
             <Head>
-                <title>Verification Code</title>
-                <Font 
-                    fontFamily='Roboto'
-                    fallbackFontFamily='Verdana'
-                    webFont={{
-                        url: 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap',
-                    }}
-                />
+                <title>Verification Code</title>  
             </Head>
             <Preview>Here's your verification code: {otp}</Preview>
             <Section>
