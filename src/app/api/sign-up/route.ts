@@ -46,6 +46,10 @@ export async function POST(request:Request ){
        })
        await newUser.save()
       }
+
+      //send verification email
+      
+
     } catch (error) {
         console.error('error registering user, error')
         return   Response.json({
