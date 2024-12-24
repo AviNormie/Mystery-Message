@@ -31,7 +31,14 @@ export async function POST(request:Request ){
           return Response.json({
             success:false,
             message:"user already exist with this email"
-          },{status:500})
+          },{status:400})
+        } else{
+          const hasedPassword= await bcrypt.hash(password,10)
+          existingUserByEmail.password=hasedPassword
+          existingUserByEmail.verifyCode=verifyCode
+          existingUserByEmail.verifyCodeExpiry = new Date(Date.now() + 3600000)
+          await existingUserByEmail.save()
+
         }
       }
       else{
