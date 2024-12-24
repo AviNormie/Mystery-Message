@@ -27,7 +27,7 @@ export async function POST(request:Request ){
       const verifyCode = Math.floor(100000 + Math.random()*900000).toString()
 
       if (existingUserByEmail){
-        true // TODO:
+        // if(existingUserByEmail.isVerified)
       }
       else{
        const hasedPassword = await bcrypt.hash(password,10) 
@@ -59,6 +59,10 @@ export async function POST(request:Request ){
             message:emailResponse.message
         },{status:500})
       }
+      return Response.json({
+        success:true,
+        message:"User registered succesfully/Please verify your email"
+      },{status:201})
 
     } catch (error) {
         console.error('error registering user, error')
