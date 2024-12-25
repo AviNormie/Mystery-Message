@@ -41,5 +41,31 @@ export const authoptions: NextAuthOptions = {
                     throw new Error(err)
                 }
         }})
-    ]
+    ],
+    callbacks:{
+        async jwt({ token, user}){
+            //making the token powerfull by adding more fields to it..so that we dont hve to send requests to databse everytime.
+            //these _id is not there initially so we went to types/nextauth.d.ts file and added these fields. matlab user module me thode changes kiye.  
+            if(user){
+                token._id=user._id
+                token.username=user.username
+                token.isAcceptingMessages=user.isAcceptingMessages
+                token.isVerified=user.isVerified
+            }
+            return token
+        },
+        async session({session, token}){
+            if(token){
+                session.user._id=token._id 
+            }
+            return session 
+        } 
+    },
+    pages:{
+        signIn:'.sign-in'
+    },
+    session:{
+        strategy:"jwt"
+    },
+    secret:process.env.NEXTAUTH_SECRET
 }
